@@ -3,13 +3,13 @@ using Xunit;
 
 namespace Api.Tests.UrlHasher
 {
-    public class EncodeUrlInBase62
+    public class EncodeUrl
     {
         [Fact]
-        public void Should_Correctly_Encode_Number_In_Base62()
+        public void Should_Correctly_Encode_Number()
         {
             var encoder = new UrlBaseEncoder();
-            var result = encoder.EncodeUrlInBase62(100);
+            var result = encoder.EncodeUrl(100);
             Assert.Equal("bM", result);
         }
     }
