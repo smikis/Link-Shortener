@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.Domain.DatabaseService;
+using Api.Domain.UrlHasher;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +28,8 @@ namespace Api.LinkShortener
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSingleton<IDatabaseService, SqLiteService>();
+            services.AddScoped<IUrlBaseEncoder, UrlBaseEncoder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

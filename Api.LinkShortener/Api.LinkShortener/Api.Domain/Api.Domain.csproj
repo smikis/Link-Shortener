@@ -4,4 +4,13 @@
         <TargetFramework>netcoreapp2.1</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="DatabaseService\Resources" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="1.60.6" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.6" />
+    </ItemGroup>
+
 </Project>

@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 
 namespace Api.Domain.UrlHasher
 {
-    public class UrlBaseEncoder
+    public class UrlBaseEncoder : IUrlBaseEncoder
     {
         private static string Characters { get; } = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         private readonly int _base = Characters.Length;
