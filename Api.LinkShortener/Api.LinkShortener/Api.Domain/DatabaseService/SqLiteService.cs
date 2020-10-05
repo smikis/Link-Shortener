@@ -33,6 +33,15 @@ namespace Api.Domain.DatabaseService
             }
         }
 
+        public int GetLinksCount()
+        {
+            using (_connection)
+            {
+                return _connection.ExecuteScalar<int>(Queries.RecordsCount);
+
+            }
+        }
+
         private void CreateDatabase()
         {
             using (_connection)

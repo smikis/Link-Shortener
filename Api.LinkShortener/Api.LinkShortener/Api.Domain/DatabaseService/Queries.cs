@@ -15,5 +15,7 @@ namespace Api.Domain.DatabaseService
         public static string InsertLink =
             @"INSERT INTO Links (ID, Url, ShortUrl, CreatedDate)
                 (@Id, @Url, @ShortUrl, date('now'));";
+
+        public static string RecordsCount = "SELECT COUNT(*) FROM Links;";
     }
 }
