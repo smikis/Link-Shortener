@@ -1,10 +1,12 @@
 using Api.Domain.DatabaseService.Models;
+using System.Threading.Tasks;
 
 namespace Api.Domain.DatabaseService
 {
     public interface IDatabaseService
     {
+        string GetFullUrl(long id);
         int GetLinksCount();
-        void WriteLinkInformation(ShortLink link);
+        Task WriteLinkInformationAsync(ShortLink link);
     }
 }

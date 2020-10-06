@@ -1,4 +1,5 @@
 using System.IO;
+using System.Threading.Tasks;
 using Api.Domain.DatabaseService.Models;
 using Dapper;
 using Microsoft.Data.Sqlite;
@@ -13,23 +14,23 @@ namespace Api.Domain.DatabaseService
         public SqLiteService(IConfiguration configuration)
         {
             _configuration = configuration;
-            
+
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             _connection = new SqliteConnection(connectionString);
-            
+
             var database = _configuration.GetSection("AppSettings")["DatabaseName"];
             if (!File.Exists(database))
             {
                 CreateDatabase();
             }
         }
-        
-        public void WriteLinkInformation(ShortLink link)
+
+        public async Task WriteLinkInformationAsync(ShortLink link)
         {
             using (_connection)
             {
-                _connection.ExecuteAsync(Queries.InsertLink, link);
-                
+                await _connection.ExecuteAsync(Queries.InsertLink, link);
+
             }
         }
 
@@ -38,6 +39,15 @@ namespace Api.Domain.DatabaseService
             using (_connection)
             {
                 return _connection.ExecuteScalar<int>(Queries.RecordsCount);
+
+            }
+        }
+
+        public string GetFullUrl(long id)
+        {
+            using (_connection)
+            {
+                return _connection.ExecuteScalar<string>(Queries.GetFullLink, new { Id = id });
 
             }
         }

@@ -2,6 +2,7 @@ using Api.Domain.DatabaseService;
 using Api.Domain.DatabaseService.Models;
 using Api.Domain.UrlHasher;
 using System;
+using System.Threading.Tasks;
 
 namespace Api.Domain.LinkShortener
 {
@@ -15,7 +16,7 @@ namespace Api.Domain.LinkShortener
             _encoder = encoder;
         }
 
-        public string ShortenLink(string url)
+        public async Task<string> ShortenLink(string url)
         {
             var linksCount = _database.GetLinksCount();
             var id = linksCount + 1;
@@ -28,9 +29,18 @@ namespace Api.Domain.LinkShortener
                 CreatedDate = DateTime.UtcNow
             };
 
-            _database.WriteLinkInformation(shorUrl);
+            await _database.WriteLinkInformationAsync(shorUrl);
 
             return encodedCount;
+        }
+
+        public string GetFullUrl(string shortUrl)
+        {
+            var decodedId = _encoder.DecodeUrl(shortUrl);
+
+            var fullUrl = _database.GetFullUrl(decodedId);
+
+            return fullUrl;
         }
     }
 }
