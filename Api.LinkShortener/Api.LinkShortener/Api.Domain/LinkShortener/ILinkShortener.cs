@@ -1,7 +1,10 @@
-﻿namespace Api.Domain.LinkShortener
+﻿using System.Threading.Tasks;
+
+namespace Api.Domain.LinkShortener
 {
     public interface ILinkShortener
     {
-        string ShortenLink(string url);
+        string GetFullUrl(string shortUrl);
+        Task<string> ShortenLink(string url);
     }
 }

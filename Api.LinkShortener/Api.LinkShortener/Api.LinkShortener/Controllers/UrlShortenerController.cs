@@ -19,10 +19,18 @@ namespace Api.LinkShortener.Controllers
         }
         // POST api/urlShortener
         [HttpPost]
-        public string ShortenUrl([FromBody] UrlData url)
+        public async Task<string> ShortenUrl([FromBody] UrlData url)
         {
-            var shortUrl = _linkShortener.ShortenLink(url.Url);
+            var shortUrl = await _linkShortener.ShortenLink(url.Url);
             return shortUrl;
+        }
+
+        [HttpGet]
+        [Route("{shortUrl}")]
+        public string GetFullUrl(string shortUrl)
+        {
+            var fullUrl = _linkShortener.GetFullUrl(shortUrl);
+            return fullUrl;
         }
 
         public class UrlData
